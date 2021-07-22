@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h1>Hello World PrimeFaces</h1>
+
+	<div class="card">
+	<i class="pi pi-send"></i>
+	
+        <h:form id="editor1">    
+            <h3 style="margin-top:0">Basic</h3>
+            <p:textEditor   widgetVar="editor1" value="#{editorView.text}" height="300" style="margin-bottom:10px"/>
+
+            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-save" />
+            <p:commandButton value="Clear" type="button" onclick="PF('editor1').clear();" icon="pi pi-times" />
+
+            <h3 class="first">Custom Toolbar</h3>
+            <p:textEditor id="editor2" widgetVar="editor2" value="#{editorView.text2}" height="300" style="margin-bottom:10px" placeholder="Enter your content">
+                <f:facet name="toolbar">
+                     <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <select class="ql-font"></select>
+                        <select class="ql-size"></select>
+                    </span>
+                </f:facet>
+            </p:textEditor>
+
+            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-save" />
+            <p:commandButton value="Clear" type="button" onclick="PF('editor2').clear();" icon="pi pi-times" />
+
+            <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                <p:outputPanel id="display">
+                    <h3 style="margin-top:0">Basic</h3>
+                    <h:outputText value="#{editorView.text}" escape="false" />
+
+                    <h3>Custom</h3>
+                    <h:outputText value="#{editorView.text2}" escape="false" />
+                </p:outputPanel>
+            </p:dialog>     
+        </h:form>
+</div>
+
+</h:body>
+</html>
