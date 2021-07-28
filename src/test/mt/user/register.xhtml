@@ -6,11 +6,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-
+	<f:viewParam name="wizard" value="#{registrationBean.wizard}" />
 	<f:event type="javax.faces.event.PreRenderViewEvent" listener="#{registrationBean.preRenderView}" />						
 </f:metadata>
 		
-<ui:composition template="/mt/templates/new_main.xhtml">
+<ui:composition template="/lw/templates/new_main.xhtml">
 
 	<ui:param name="pageTitle" value="#{msg.registerLabel}" />
 	
@@ -18,7 +18,7 @@
 		
 			<h:form id="registerform" style="width: 300px; margin-left:auto; margin-right:auto;">
 	
-		
+			<input type="hidden" name="wizard" value="#{registrationBean.wizard}" />
 				<h:panelGrid columns="3">					
 					<h:outputLabel for="username" value="#{msg.username}: *" />
 					<p:inputText id="username" value="#{registrationBean.username}" validator="#{registrationBean.validateUsername}">

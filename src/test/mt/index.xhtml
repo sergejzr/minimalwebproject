@@ -12,9 +12,9 @@
 	<h:head>
 		<title><h:outputText value="#{msg.homepageTitle}"
 				escape="false" /></title>
-		<base href="#{applicationBean.baseUrl}" />
+		<base href="#{learnwebBean.baseUrl}" />
 		<link rel="stylesheet" type="text/css"
-			href="#{applicationBean.baseUrl}../resources/css/login.css" />
+			href="#{learnwebBean.baseUrl}../resources/css/login.css" />
 		<h:outputScript library="js" name="jstz.min.js"/>
 		<h:outputScript library="js" name="timezone_setter.js"/>
 	</h:head>
@@ -48,8 +48,15 @@
 					<br/>
 					<br/>
 					<br/>
+					<p>
+					If there are any problems, please feel free to contact us at <br/>
+					<a href="mailto:crowdgames@l3s.de">crowdgames@l3s.de</a>.
+					</p> 
 					<br/>
-				
+					<h:outputLink styleClass="greenbutton" 
+						value="#{learnwebBean.mechanicalUrl}">
+						Back to the start page
+					</h:outputLink>
 				</span>
 
 			</div>
@@ -88,7 +95,7 @@
 									action="#{loginBean.login()}" value="#{msg.loginLabel}"
 									ajax="false" 
 									update=":growl "/>
-								<h:commandButton id="register" rendered="true"
+								<h:commandButton id="register" rendered="#{not learnwebBean.learnweb.afterEnd}"
 									onclick="PF('dlg').show(); return false;" styleClass="greenbutton"
 									value="I'm a new user!" style=" margin-left:0px;"></h:commandButton>
 							</h:panelGrid>
@@ -105,8 +112,118 @@
 				</div>
 			</div>
 
+		<div class="footer">
+			This task is part of research on performance based reward systems. It is conducted within the EU IP Project 
+			QualiMaster (<h:outputLink style="z-index:-500 !important;" value="http://qualimaster.eu" >qualimaster.eu</h:outputLink>)
+		</div>
+		<p:dialog widgetVar="faq" header="Frequently Asked Questions" resisable="true" width="700" height="600">
+			<p><b>What are the teams?</b></p>
+			<p>
+				<b>A: </b>
+				There are 20 teams. Each participant is randomly assigned to a team  (after completing one batch) and contributes to the team score. 
+			</p>
+			
+			<p><b>How are rewards distributed?</b></p>
+			<p>
+				<b>A: </b>
+				Each participant has two opportunities to receive a reward:
+			</p>
+				<ul>
+				<li>
+			<p>
+				Each participant contributes to the team score. Based on his/her contribution to the team score, a participant receives a 
+				share proportional to his/her contribution. If you have contributed 20% to the team score, you will receive 20% of the team reward.
+			</p>
+			<p>
+				The team reward is distributed to the teams based on their final rank, according to the following distribution:
+			</p>
+			<h:panelGrid columns="2" style="margin: 0 auto;text-align:center;">
+				<h:outputText value="Team Rank" style="font-weight:bold;"/>
+				<h:outputText value="&#xA0;&#xA0;Reward" style="font-weight:bold;"/>
+				<h:outputText value="1" style="font-weight:bold;"/>
+				<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;25$" style="font-weight:bold;"/>
+				<h:outputText value="2" style="font-weight:bold;"/>
+				<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;12$" style="font-weight:bold;"/>
+				<h:outputText value="3" style="font-weight:bold;"/>
+				<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;7$" style="font-weight:bold;"/>
+				<h:outputText value="4" style="font-weight:bold;"/>
+				<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;4$" style="font-weight:bold;"/>
+				<h:outputText value="5" style="font-weight:bold;"/>
+				<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;2$" style="font-weight:bold;"/>
+			</h:panelGrid>
+			<p>
+				Teams that are not ranked among the top-5 at the end of the competition, do not receive a reward.
+			</p>
+				</li>
+				<li>
+				<p>
+				Additionally, there is an individual reward based on the rank among individual participants:
+				</p>
+				<h:panelGrid columns="2" style="margin: 0 auto;text-align:center;">
+					<h:outputText value="Rank" style="font-weight:bold;"/>
+					<h:outputText value="&#xA0;&#xA0;Reward" style="font-weight:bold;"/>
+					<h:outputText value="1" style="font-weight:bold;"/>
+					<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;25$" style="font-weight:bold;"/>
+					<h:outputText value="2" style="font-weight:bold;"/>
+					<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;12$" style="font-weight:bold;"/>
+					<h:outputText value="3" style="font-weight:bold;"/>
+					<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;7$" style="font-weight:bold;"/>
+					<h:outputText value="4" style="font-weight:bold;"/>
+					<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;4$" style="font-weight:bold;"/>
+					<h:outputText value="5" style="font-weight:bold;"/>
+					<h:outputText value="&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;2$" style="font-weight:bold;"/>
+				</h:panelGrid>
+				</li>
+				</ul>
+			<h:panelGroup rendered="#{bonusBean.bonusEventsEnabled}">
+				<p><b>What are Bonus Events?</b></p>
+				<p>
+					<b>A: </b>
+				Throughout the competition, there are one hour long bonus events 
+				<h:outputText value="which are announced one hour in advance." rendered="#{!bonusBean.showSchedule}"/> 
+				<h:outputText value="which are announced in a schedule (please log in to view the schedule)." rendered="#{bonusBean.showSchedule}"/>
+				During bonus events, points for completed batches are increased:
+				<h:outputText value="#{bonusBean.bonusFactor * 100}"/> 
+				points if the test case is annotated correctly
+				<h:outputText value="(#{bonusBean.bonusFactor * 20}"/> 
+				points are subtracted if the test case is annotated incorrectly).
+				</p>
+			</h:panelGroup>
+			<p><b>Why do you pay only the top performers? What about the rest?</b></p>
+			<p>
+				<b>A: </b>
+				We conduct performance based competitions in the context of our research work. 
+				Like in all games, there is only one or a limited number of players that can win. 
+				Therefore, this game will not reward all participants.
+			</p>
+			
+			<p><b>What are channel fees and how do they affect my payment?</b></p>
+			<p>
+				<b>A: </b>
+				Your channel may claim a certain amount from the money we pay as a bonus payment.
+				To compensate for this, we issue payments that exceed the reward in such a way, that the amount you receive is the one that is advertised.
+				There are extreme cases, where the channel claims more than half of the rewards.
+				In such cases we may not be able to fully compensate for this and remove the channel from further competitions. 
+				If there are any doubts or problems with the payment, please contact us at <a href="mailto:crowdgames@l3s.de">crowdgames@l3s.de</a>.
+			</p>
+			
+			<p><b>Why does the game run outside the CrowdFlower platform?</b></p>
+			<p>
+				<b>A: </b>
+				Because of technical limitations, the game has to run outside the CrowdFlower platform. 
+				However, monetary prizes are transferred as announced via the bonus payment method.
+			</p>
+			
+			<p><b>Why are you doing this?</b></p>
+			<p>
+				<b>A: </b>
+				The games are part of our crowdsourcing research conducted at the 
+				<a href="http://www.l3s.de"> L3S Research Center </a> which is an institute of the 
+				<a href="http://www.uni-hannover.de/en/">University of Hannover</a>, Germany. 
+			</p>
+		</p:dialog>
 		<p:dialog header="#{msg.homepageSignup}" widgetVar="dlg"
-			resizable="true" modal="true"  rendered="#{true}">
+			resizable="true" modal="true"  rendered="#{not learnwebBean.learnweb.afterEnd}">
 
 			<h:form id="registerform">
 

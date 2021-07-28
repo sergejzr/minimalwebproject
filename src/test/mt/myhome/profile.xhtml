@@ -18,14 +18,14 @@
 		</h:form>
 		<br class="clear" />
 		<h:form id="profile_form" enctype="multipart/form-data">
-			<p:panel rendered="#{not userBean.user.active}"
+			<p:panel rendered="#{learnwebBean.learnweb.planB and not userBean.user.active}"
 				style="margin: 2px;">
 				<h:outputText value="user code: "
 					style="font-family: sans-serif;left:30px; top: 20px; text-align:right;"
-					rendered="#{not userBean.user.active}" />
+					rendered="#{learnwebBean.learnweb.planB and not userBean.user.active}" />
 				<h:outputText value="#{userBean.user.mtToken}"
 					style="color: font-weight: bold; font-family: sans-serif; left:30px; top: 20px; text-align:right;"
-					rendered="#{not userBean.user.active}" />
+					rendered="#{learnwebBean.learnweb.planB and not userBean.user.active}" />
 					<br />
 			</p:panel>
 			
